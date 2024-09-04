@@ -12,4 +12,16 @@ router.delete("/:id", [
   CommentController.deleteCommentsWhenArticleDeleted,
 ]);
 
+router.get("/:articleId/comments", CommentController.findCommentsByArticleId);
+router.get(
+  "/:articleId/comment/:commentId",
+  CommentController.findCommentsByArticleIdAndCommentId,
+);
+router.post("/:articleId/comment", CommentController.createComment);
+router.patch("/:articleId/comment/:commentId", CommentController.updateComment);
+router.delete(
+  "/:articleId/comment/:commentId",
+  CommentController.deleteComment,
+);
+
 module.exports = router;
