@@ -134,6 +134,27 @@ const deleteCommentsWhenArticleDeleted = async (req, res) => {
     });
 };
 
+const findCommentsByPeriodGroupedByArticle = async (req, res) => {
+  const { dateFrom, dateTo } = req.query;
+
+  await commentService
+    .findCommentsByPeriodGroupedByArticle(dateFrom, dateTo)
+    .then((data) => {
+      res.send({
+        data,
+        message: "success",
+        statusCode: 200,
+      });
+    })
+    .catch((err) => {
+      res.send({
+        data: null,
+        message: err.message,
+        statusCode: err.status,
+      });
+    });
+};
+
 module.exports = {
   createComment,
   findCommentsByArticleId,
@@ -141,4 +162,5 @@ module.exports = {
   updateComment,
   deleteComment,
   deleteCommentsWhenArticleDeleted,
+  findCommentsByPeriodGroupedByArticle,
 };
