@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-main>
-      <HelloWorld />
+      <RouterView />
     </v-main>
 
     <AppFooter />
@@ -9,5 +9,11 @@
 </template>
 
 <script setup>
-  //
+//
 </script>
+
+<style>
+.title {
+  padding: 20px;
+}
+</style>
