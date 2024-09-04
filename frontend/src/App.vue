@@ -16,4 +16,8 @@
 .title {
   padding: 20px;
 }
+
+.v-field--disabled {
+  opacity: 1;
+}
 </style>
