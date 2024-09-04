@@ -1,7 +1,12 @@
 <template>
   <v-table class="mx-auto w-75" v-if="articles.length > 0">
     <tbody>
-      <tr class="name-article" v-for="{ id, name, text } in articles" :key="id">
+      <tr
+        class="name-article"
+        v-for="{ id, name, text } in articles"
+        :key="id"
+        @click="goToArticle(id)"
+      >
         <td>{{ name }}</td>
         <td>
           {{ text }}
@@ -34,6 +39,10 @@ const articles = computed(() => store.getters.articles);
 onMounted(() => {
   store.dispatch("getAllArticles");
 });
+
+const goToArticle = (id) => {
+  router.push({ name: "article", params: { id } });
+};
 
 const goToCreateArticle = () => {
   router.push({ name: "create-article" });
