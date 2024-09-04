@@ -30,19 +30,24 @@
             >{{ new Date(article.updatedAt).toLocaleString() }}
           </v-chip>
         </div>
-      </footer>
-      <div class="comments">
-        <h2 class="comments-title">Комментарии:</h2>
-        <CreateCommentForm :article-id="articleData.id" />
-        <div v-for="comment in comments" :key="comment.id">
-          <Comment
-            :article-id="comment.articleId"
-            :comment-id="comment.id"
-            :created-at="comment.createdAt"
-            :updated-at="comment.updatedAt"
-            :text="comment.text"
-          />
+        <div class="actions">
+          <EditButton :goToEdit="toggleEdit" v-if="!isEdit" />
+          <SaveButton :saveChanges="saveChanges" v-else />
+          <DeleteButton :deleteItem="deleteArticle" />
         </div>
+      </footer>
+    </div>
+    <div class="comments">
+      <h2 class="comments-title">Комментарии:</h2>
+      <CreateCommentForm :article-id="articleData.id" />
+      <div v-for="comment in comments" :key="comment.id">
+        <Comment
+          :article-id="comment.articleId"
+          :comment-id="comment.id"
+          :created-at="comment.createdAt"
+          :updated-at="comment.updatedAt"
+          :text="comment.text"
+        />
       </div>
     </div>
   </div>
