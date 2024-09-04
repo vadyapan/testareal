@@ -7,7 +7,8 @@
 // Plugins
 import vuetify from "./vuetify";
 import store from "@/vuex/store";
+import router from "@/routers/router";
 
 export function registerPlugins(app) {
-  app.use(vuetify).use(store);
+  app.use(vuetify).use(store).use(router);
 }
