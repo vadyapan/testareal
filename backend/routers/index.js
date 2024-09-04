@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const articlesRoute = require("./articles/articles.route");
 const articleRoute = require("./articles/article.route");
+const analyticRoute = require("./analytic/analytic.route");
 
 const RouterList = [
   {
@@ -11,6 +12,10 @@ const RouterList = [
   {
     path: "/article",
     route: articleRoute,
+  },
+  {
+    path: "/analytic",
+    route: analyticRoute,
   },
 ];
 
