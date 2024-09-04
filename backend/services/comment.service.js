@@ -80,3 +80,51 @@ exports.deleteCommentsWhenArticleDeleted = async (id) => {
       };
     });
 };
+
+exports.findCommentsByPeriodGroupedByArticle = async (dateFrom, dateTo) => {
+  const comments = await comment_model.findAll({
+    where: {
+      createdAt: {
+        [Sequelize.Op.between]: [dateFrom, dateTo],
+      },
+    },
+    attributes: ["id", "text", "createdAt", "updatedAt"],
+    include: [
+      {
+        model: article_model,
+        as: "article",
+        attributes: ["id", "name", "text", "createdAt", "updatedAt"],
+      },
+    ],
+  });
+
+  const groupedData = comments.reduce((acc, comment) => {
+    const articleId = comment.article.id;
+    const articleName = comment.article.name;
+    const articleText = comment.article.text;
+    const articleCreatedAt = comment.article.createdAt;
+    const articleUpdatedAt = comment.article.createdAt;
+
+    if (!acc[articleId]) {
+      acc[articleId] = {
+        id: articleId,
+        name: articleName,
+        text: articleText,
+        createdAt: articleCreatedAt,
+        updatedAt: articleUpdatedAt,
+        comments: [],
+      };
+    }
+
+    acc[articleId].comments.push({
+      id: comment.id,
+      text: comment.text,
+      createdAt: comment.createdAt,
+      updatedAt: comment.updatedAt,
+    });
+
+    return acc;
+  }, {});
+
+  return Object.values(groupedData);
+};
